@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"content="width=device-width, initial-scale=1.0" />
+    <title>Web Pet MVP</title>
+    <link rel="stylesheet"href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="pet-panel">
+        <div class="pet-avatar-wrap">
+          <img
+            id="petAvatar"
+            src="pet-idle.png"
+            alt="AI pet avatar"
+          />
+        </div>
+
+        <div class="pet-info">
+          <h1 id="petName">Mono</h1>
+          <p id="petState">idle</p>
+          <p id="petDescription">
+            A small companion pet who stays with you and replies gently.
+          </p>
+        </div>
+      </section>
+
+      <section class="chat-panel">
+        <h2>Talk to Momo</h2>
+        <div id="messages"></div>
+        <p id="status">Say something to your pet.</p>
+
+        <form id="chatForm">
+          <input id="messageInput" type="text" placeholder="Talk to your pet..."/>
+          <button id="sendBtn" type="submit">send</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
