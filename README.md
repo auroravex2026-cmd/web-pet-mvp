@@ -1,6 +1,6 @@
 # Web Pet MVP
 
-![Web Pet thinking state](public/images/readme-pet-thinking.png)
+<img src="public/images/readme-pet-thinking.png" alt="Web Pet thinking state" width="240">
 
 A small web pet chat MVP. The page shows a character pet, switches the pet image by state, and sends chat messages to an OpenAI-compatible chat API through the backend.
 
