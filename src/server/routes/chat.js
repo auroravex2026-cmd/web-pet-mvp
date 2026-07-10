@@ -1,6 +1,6 @@
 ﻿const express = require("express");
-const chatFunction = require("../services/chat.service");
-const personas = require("../config/persona");
+const chatFunction = require("../../services/chat.service");
+const personas = require("../../config/persona");
 
 const router = express.Router();
 

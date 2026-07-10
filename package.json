@@ -4,8 +4,8 @@
   "description": "A small web pet chat MVP with state-based character images.",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node src/server/index.js",
+    "dev": "node --watch src/server/index.js"
   },
   "type": "commonjs",
   "dependencies": {

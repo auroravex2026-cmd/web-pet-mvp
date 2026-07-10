@@ -6,7 +6,7 @@ const errorHandler = require("./middleware/error-handler");
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname,"..","..", "public")));
 
 app.get("/health", (req, res) => {
     res.send("web-pet-mvp is running");
