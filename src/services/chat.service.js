@@ -1,10 +1,10 @@
 ﻿const personas = require("../config/persona");
 
-async function chatFunction(messages) {
+async function chatFunction(messages, persona) {
     const apiKey = process.env.OPENAI_API_KEY;
     const baseUrl = process.env.OPENAI_BASE_URL;
     const model = process.env.OPENAI_MODEL;
-   // const systemPrompt = personas[persona] || personas.gentle;
+    const systemPrompt = personas[persona] || personas.gentle;
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
@@ -17,7 +17,7 @@ async function chatFunction(messages) {
             messages: [
                 {
                     role: "system",
-                    content: "You are a gentle companion pet. Reply briefly, softly, and supportively."
+                    content: systemPrompt,
                 },
                 ...messages
             ]

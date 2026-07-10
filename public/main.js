@@ -2,6 +2,7 @@
 const status = document.querySelector("#status");
 const messageInput = document.querySelector("#messageInput");
 const sendBtn = document.querySelector("#sendBtn");
+const personaSelect = document.querySelector("#personaSelect");
 const messagesContainer = document.querySelector("#messages");
 const petState = document.querySelector("#petState");
 const petAvatar = document.querySelector("#petAvatar");
@@ -147,6 +148,7 @@ chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const message = messageInput.value.trim();
+    const persona = personaSelect.value;
 
     if (message === "") {
         status.textContent = "please type something";
@@ -166,6 +168,7 @@ chatForm.addEventListener("submit", async (event) => {
 
     sendBtn.disabled = true;
     sendBtn.textContent = "sending...";
+    personaSelect.disabled = true;
     messageInput.value = "";
 
     setPetState("thinking", {
@@ -180,6 +183,7 @@ chatForm.addEventListener("submit", async (event) => {
                 "application/json"
             },
             body: JSON.stringify({
+                persona: persona,
                 messages: messages
             })
         });
@@ -214,6 +218,7 @@ chatForm.addEventListener("submit", async (event) => {
         isRequestPending = false;
         sendBtn.disabled = false;
         sendBtn.textContent = "send";
+        personaSelect.disabled = false;
         scheduleSleepTimer();
     }
 });

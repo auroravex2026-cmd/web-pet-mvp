@@ -177,6 +177,37 @@ body {
     align-items: stretch;
 }
 
+#chatForm label {
+    align-self: center;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#personaSelect {
+    flex: 0 0 132px;
+    min-width: 0;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    outline: none;
+    background: var(--input-bg);
+    color: var(--text-main);
+    font: inherit;
+    cursor: pointer;
+}
+
+#personaSelect:focus {
+    border-color: rgba(201, 120, 71, 0.5);
+    box-shadow: 0 0 0 4px rgba(201, 120, 71, 0.12);
+}
+
+#personaSelect:disabled {
+    color: var(--text-soft);
+    cursor: not-allowed;
+    opacity: 0.72;
+}
+
 #messageInput {
     flex: 1;
     min-width: 0;
@@ -327,6 +358,10 @@ body[data-pet-state="sleepy"] .pet-panel {
     }
 
     #sendBtn {
+        min-height: 48px;
+    }
+
+    #personaSelect {
         min-height: 48px;
     }
 }
