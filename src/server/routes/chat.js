@@ -1,5 +1,5 @@
 ﻿const express = require("express");
-const chatFunction = require("../../services/chat.service");
+const createPetReply = require("../../services/pet-chat.service");
 const personas = require("../../config/persona");
 
 const router = express.Router();
@@ -27,7 +27,7 @@ router.post("/chat", async (req, res, next) => {
             });
         }
 
-        const replyMessage = await chatFunction(messages,persona);
+        const replyMessage = await createPetReply(messages,persona);
 
         res.json({
             reply: replyMessage

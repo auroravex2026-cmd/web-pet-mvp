@@ -1,10 +1,7 @@
-﻿const personas = require("../config/persona");
+const getAIConfig = require("../config/env.js");
 
-async function chatFunction(messages, persona) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    const baseUrl = process.env.OPENAI_BASE_URL;
-    const model = process.env.OPENAI_MODEL;
-    const systemPrompt = personas[persona] || personas.gentle;
+async function createChatCompletion(messages) {
+    const { apiKey, baseUrl, model } = getAIConfig();
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
@@ -14,13 +11,7 @@ async function chatFunction(messages, persona) {
         },
         body: JSON.stringify({
             model: model,
-            messages: [
-                {
-                    role: "system",
-                    content: systemPrompt,
-                },
-                ...messages
-            ]
+            messages: messages
         })
     });
 
@@ -39,4 +30,4 @@ async function chatFunction(messages, persona) {
     return reply.trim();
 }
 
-module.exports = chatFunction;
+module.exports = createChatCompletion;
