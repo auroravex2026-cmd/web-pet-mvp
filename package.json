@@ -1,15 +1,19 @@
-﻿{
+{
   "name": "web-pet-mvp",
   "version": "1.0.0",
   "description": "A small web pet chat MVP with state-based character images.",
-  "main": "src/server.js",
+  "main": "electron/main.js",
   "scripts": {
     "start": "node src/server/index.js",
-    "dev": "node --watch src/server/index.js"
+    "dev": "node --watch src/server/index.js",
+    "electron:dev": "electron ."
   },
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "electron": "^43.1.0"
   }
 }

@@ -7,6 +7,7 @@ const messagesContainer = document.querySelector("#messages");
 const petState = document.querySelector("#petState");
 const petAvatar = document.querySelector("#petAvatar");
 const petDescription = document.querySelector("#petDescription");
+const desktopInfo = document.querySelector("#desktopInfo");
 
 const messages = [];
 
@@ -144,6 +145,19 @@ function wakePet() {
     scheduleSleepTimer();
 }
 
+
+async function renderDesktopInfo() {
+    if (!desktopInfo || !window.desktop) {
+        return;
+    }
+
+    const appVersion = await window.desktop.getAppVersion();
+    const { electron, node } = await window.desktop.getRuntimeVersions();
+
+    desktopInfo.textContent = `Web Pet ${appVersion} and Desktop app running on Electron ${electron} and Node.js ${node}`;
+}
+
+
 chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -242,3 +256,5 @@ window.addEventListener("keydown", wakePet);
 setPetState("idle", {
     statusText: "Say something to your pet."
 });
+
+renderDesktopInfo();
