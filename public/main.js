@@ -157,6 +157,38 @@ async function renderDesktopInfo() {
     desktopInfo.textContent = `Web Pet ${appVersion} and Desktop app running on Electron ${electron} and Node.js ${node}`;
 }
 
+async function loadSavedConversation() {
+    if (!window.desktop) {
+        return;
+    }
+
+    try {
+        const savedMessages = await window.desktop.loadConversation();
+
+        messages.push(...savedMessages);
+        renderMessages();
+
+        if (savedMessages.length > 0) {
+              status.textContent = "Previous conversation restored.";
+        }
+    } catch (error) {
+        console.error("Failed to restore conversation:", error);
+    }
+}
+
+async function saveCurrentConversation() {
+    if (!window.desktop) {
+        return;
+    }
+
+    try {
+        await
+        window.desktop.saveConversation(messages);
+    } catch (error) {
+        console.error("Could not save conversation:", error);
+    }
+  }
+
 
 chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -214,6 +246,7 @@ chatForm.addEventListener("submit", async (event) => {
         });
 
         renderMessages();
+        await saveCurrentConversation();
 
         setPetState("happy", {
             statusText: "reply received",
@@ -256,5 +289,5 @@ window.addEventListener("keydown", wakePet);
 setPetState("idle", {
     statusText: "Say something to your pet."
 });
-
+loadSavedConversation();
 renderDesktopInfo();

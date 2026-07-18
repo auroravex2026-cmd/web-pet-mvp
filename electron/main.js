@@ -1,5 +1,6 @@
 const {app, BrowserWindow, ipcMain } = require('electron');
 const path = require("node:path");
+const { loadConversation, saveConversation } = require("./storage/conversation-store");
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -15,9 +16,27 @@ function createWindow() {
 }
 
 app.whenReady().then( () => {
+    const userDataPath = app.getPath("userData");
+
     ipcMain.handle("app:getVersion", () => {
         return app.getVersion();
     });
+
+    ipcMain.handle("conversation:load", async () => {
+        return await loadConversation(userDataPath);
+    });
+
+    ipcMain.handle("conversation:save", async (event, messages) => {
+        if (!Array.isArray(messages)) {
+            throw new Error("messages must be an array.");
+        }
+
+        await saveConversation(userDataPath, messages);
+
+        return {
+            saved: true
+        };
+    })
 
     createWindow();
 
