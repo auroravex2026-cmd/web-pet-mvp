@@ -1,7 +1,7 @@
 {
   "name": "web-pet-mvp",
   "version": "1.0.0",
-  "description": "A small web pet chat MVP with state-based character images.",
+  "description": "A local chat and reminder desktop tool built with Electron and Express.",
   "main": "electron/main.js",
   "scripts": {
     "start": "node src/server/index.js",

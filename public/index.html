@@ -1,48 +1,119 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport"content="width=device-width, initial-scale=1.0" />
-    <title>Web Pet MVP</title>
-    <link rel="stylesheet"href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lilia</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app">
-      <section class="pet-panel">
-        <div class="pet-avatar-wrap">
-          <img
-            id="petAvatar"
-            src="pet-idle.png"
-            alt="AI pet avatar"
-          />
+    <main class="app-shell">
+      <aside class="sidebar">
+        <button class="brand" type="button" data-go-to="home" aria-label="返回 Lilia 主页">
+          <strong>Lilia</strong>
+        </button>
+
+        <nav class="main-navigation" aria-label="主导航">
+          <button class="nav-item is-active" type="button" data-view="home" aria-label="主页" title="主页">
+            <span class="nav-icon" aria-hidden="true">⌂</span>
+            <span class="nav-label">主页</span>
+          </button>
+          <button class="nav-item" type="button" data-view="chat" aria-label="聊天" title="聊天">
+            <span class="nav-icon" aria-hidden="true">◌</span>
+            <span class="nav-label">聊天</span>
+          </button>
+          <button class="nav-item" type="button" data-view="reminders" aria-label="备忘录" title="备忘录">
+            <span class="nav-icon" aria-hidden="true">✓</span>
+            <span class="nav-label">备忘录</span>
+          </button>
+        </nav>
+
+        <p id="desktopInfo" class="desktop-info"></p>
+      </aside>
+
+      <div class="page-container">
+        <section class="app-page is-active" data-page="home" aria-label="Lilia 主页">
+          <div class="home-stage">
+            <section class="home-copy" aria-labelledby="homeTitle">
+              <p class="eyebrow">YOUR DESKTOP COMPANION</p>
+              <h1 id="homeTitle">Lilia</h1>
+              <p class="home-description">陪你聊天，也替你记住重要的小事。</p>
+              <div class="home-actions" aria-label="快捷操作">
+                <button class="primary-button" type="button" data-go-to="chat">开始聊天</button>
+                <button class="secondary-button" type="button" data-go-to="reminders">查看备忘录</button>
+              </div>
+            </section>
+
+          </div>
+        </section>
+
+        <section class="app-page chat-panel" data-page="chat" aria-labelledby="chatTitle" hidden>
+          <div class="page-header chat-header">
+            <div>
+              <p class="eyebrow">CHAT WITH LILIA</p>
+              <h1 id="chatTitle">和 Lilia 聊天</h1>
+              <p id="status" class="page-description">Say something to your pet.</p>
+            </div>
+            <button class="secondary-button" type="button" data-go-to="reminders">查看备忘录</button>
+          </div>
+
+          <div id="messages"></div>
+          <form id="chatForm">
+            <label for="personaSelect">Personality</label>
+            <select id="personaSelect" name="persona">
+              <option value="gentle">Gentle</option>
+              <option value="tsundere">Tsundere</option>
+              <option value="calm">Calm</option>
+            </select>
+            <input id="messageInput" type="text" placeholder="Talk to your pet..." />
+            <button id="sendBtn" type="submit">send</button>
+          </form>
+        </section>
+
+        <section class="app-page reminders-page" data-page="reminders" aria-labelledby="remindersTitle" hidden>
+          <header class="page-header reminders-header">
+            <div>
+              <p class="eyebrow">LILIA REMINDERS</p>
+              <h1 id="remindersTitle">备忘录</h1>
+              <p class="page-description">记下重要的事情，让 Lilia 和你一起记得。</p>
+            </div>
+            <button class="primary-button" type="button" data-open-reminder-modal>新建备忘录</button>
+          </header>
+
+          <section class="reminder-page-card" aria-label="活跃备忘录">
+            <div class="card-heading">
+              <h2>正在记住</h2>
+              <span id="reminderCount" class="count-badge">0 条</span>
+            </div>
+            <p id="reminderPageFeedback" class="reminder-feedback" aria-live="polite"></p>
+            <ul id="reminderPageList" class="reminder-list reminder-page-list" aria-live="polite"></ul>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="reminderModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-reminder-modal></div>
+      <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="reminderModalTitle">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">LILIA REMINDER</p>
+            <h2 id="reminderModalTitle">需要我帮你记住什么？</h2>
+          </div>
+          <button id="closeReminderBtn" class="close-button" type="button" aria-label="关闭备忘录窗口">×</button>
         </div>
 
-        <div class="pet-info">
-          <h1 id="petName">Mono</h1>
-          <p id="petState">idle</p>
-          <p id="petDescription">
-            A small companion pet who stays with you and replies gently.
-          </p>
-        </div>
-      </section>
-
-      <section class="chat-panel">
-        <h2>Talk to Momo</h2>
-        <div id="messages"></div>
-        <p id="status">Say something to your pet.</p>
-        <p id="desktopInfo"></p>
-        <form id="chatForm">
-          <label for="personaSelect">Personality</label>
-          <select id="personaSelect" name="persona">
-            <option value="gentle">Gentle</option>
-            <option value="tsundere">Tsundere</option>
-            <option value="calm">Calm</option>
-          </select>
-          <input id="messageInput" type="text" placeholder="Talk to your pet..."/>
-          <button id="sendBtn" type="submit">send</button>
+        <form id="reminderForm">
+          <label class="sr-only" for="reminderContent">备忘录内容</label>
+          <textarea id="reminderContent" name="content" rows="5" maxlength="500" placeholder="例如：明早 10 点开会，记得提醒我。" required></textarea>
+          <p id="reminderFormStatus" class="form-status" aria-live="polite"></p>
+          <div class="modal-actions">
+            <button id="cancelReminderBtn" class="secondary-button" type="button">取消</button>
+            <button id="saveReminderBtn" class="primary-button" type="submit">帮我记住</button>
+          </div>
         </form>
       </section>
-    </main>
+    </div>
 
     <script src="main.js"></script>
   </body>

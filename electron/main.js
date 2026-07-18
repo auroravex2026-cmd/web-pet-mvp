@@ -1,6 +1,8 @@
 const {app, BrowserWindow, ipcMain } = require('electron');
 const path = require("node:path");
 const { loadConversation, saveConversation } = require("./storage/conversation-store");
+const { openDatabase } = require("./storage/database");
+const { createReminder, listActiveReminders } = require("./storage/reminder-store");
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -17,6 +19,7 @@ function createWindow() {
 
 app.whenReady().then( () => {
     const userDataPath = app.getPath("userData");
+    const database = openDatabase(userDataPath);
 
     ipcMain.handle("app:getVersion", () => {
         return app.getVersion();
@@ -26,7 +29,7 @@ app.whenReady().then( () => {
         return await loadConversation(userDataPath);
     });
 
-    ipcMain.handle("conversation:save", async (event, messages) => {
+    ipcMain.handle("conversation:save", async (_event, messages) => {
         if (!Array.isArray(messages)) {
             throw new Error("messages must be an array.");
         }
@@ -37,6 +40,14 @@ app.whenReady().then( () => {
             saved: true
         };
     })
+
+    ipcMain.handle("reminders:create", (_event, reminderInput) => {
+        return createReminder(database, reminderInput);
+    });
+
+    ipcMain.handle("reminders:list-active", () => {
+        return listActiveReminders(database);
+    });
 
     createWindow();
 

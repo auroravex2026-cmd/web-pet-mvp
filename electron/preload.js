@@ -9,4 +9,6 @@ contextBridge.exposeInMainWorld("desktop",{
     getAppVersion: () => ipcRenderer.invoke("app:getVersion"),
     loadConversation: () => ipcRenderer.invoke("conversation:load"),
     saveConversation: (messages) => ipcRenderer.invoke("conversation:save", messages),
+    createReminder: (reminderInput) => ipcRenderer.invoke("reminders:create", reminderInput),
+    listActiveReminders: () => ipcRenderer.invoke("reminders:list-active"),
 });
