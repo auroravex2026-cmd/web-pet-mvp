@@ -12,6 +12,7 @@
 - AI 聊天：可选择不同对话人格，通过 OpenAI 兼容接口获得回复。
 - 聊天记录保存：关闭并重新打开应用后，历史对话会自动恢复。
 - 备忘录：新建并查看正在记住的事项。
+- 国际象棋：选择执白或执黑，与 Lilia 对弈，支持合法走子、悔棋、模型分析和实时对话。
 - 本地存储：备忘录使用 SQLite 保存；聊天记录保存为 JSON 文件。
 
 > 目前备忘录还没有“到点提醒、完成或删除”的交互；这是后续可以继续实现的功能。
@@ -23,6 +24,8 @@
 - Node.js：服务端逻辑、文件读写与 SQLite。
 - SQLite：本地备忘录数据。
 - OpenAI-compatible API：AI 回复能力。
+
+国际象棋页面会把当前棋盘和所有合法走法发送给模型，由模型选择 AI 的下一步并返回简短分析；棋盘规则和合法性校验在前端本地完成。
 
 ## 环境要求
 
@@ -123,8 +126,10 @@ web-pet-mvp/
 │   │   └── openai-compatible.client.js  # AI 服务客户端
 │   ├── config/                    # 环境变量与人格配置
 │   ├── server/                    # Express 服务、路由和错误处理
+│   │   └── routes/chess.js        # 国际象棋走法与对话接口
 │   └── services/
-│       └── pet-chat.service.js    # 聊天业务逻辑
+│       ├── pet-chat.service.js    # 普通聊天业务逻辑
+│       └── chess-ai.service.js    # 国际象棋 AI 走法与分析
 ├── docs/images/                   # README 图片
 ├── .env.example                   # 环境变量模板
 └── package.json

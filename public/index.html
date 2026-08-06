@@ -26,6 +26,10 @@
             <span class="nav-icon" aria-hidden="true">✓</span>
             <span class="nav-label">备忘录</span>
           </button>
+          <button class="nav-item" type="button" data-view="chess" aria-label="国际象棋" title="国际象棋">
+            <span class="nav-icon" aria-hidden="true">♟</span>
+            <span class="nav-label">国际象棋</span>
+          </button>
         </nav>
 
         <p id="desktopInfo" class="desktop-info"></p>
@@ -88,6 +92,55 @@
             <p id="reminderPageFeedback" class="reminder-feedback" aria-live="polite"></p>
             <ul id="reminderPageList" class="reminder-list reminder-page-list" aria-live="polite"></ul>
           </section>
+        </section>
+
+        <section class="app-page chess-page" data-page="chess" aria-labelledby="chessTitle" hidden>
+          <header class="page-header chess-header">
+            <div>
+              <p class="eyebrow">PLAY CHESS WITH LILIA</p>
+              <h1 id="chessTitle">和 Lilia 下棋</h1>
+              <p id="chessStatus" class="page-description">选择执棋颜色，准备开始。</p>
+            </div>
+            <div class="chess-actions">
+              <label class="chess-color-picker" for="chessColorSelect">
+                <span>我执</span>
+                <select id="chessColorSelect">
+                  <option value="w">白棋</option>
+                  <option value="b">黑棋</option>
+                </select>
+              </label>
+              <button id="newChessGameBtn" class="secondary-button" type="button">新开一局</button>
+              <button id="undoChessBtn" class="secondary-button" type="button">悔棋</button>
+            </div>
+          </header>
+
+          <div class="chess-workspace">
+            <section class="chess-board-card" aria-label="国际象棋棋盘">
+              <div id="chessBoard" class="chess-board" role="grid" aria-label="国际象棋棋盘"></div>
+              <div class="chess-legend">
+                <span id="chessTurnIndicator">轮到白棋</span>
+                <span id="chessMoveCount">第 1 回合</span>
+              </div>
+            </section>
+
+            <aside class="chess-sidebar" aria-label="Lilia 的棋局分析和对话">
+              <section class="chess-analysis-card">
+                <div class="card-heading">
+                  <h2>Lilia 的想法</h2>
+                  <span id="chessAiBadge" class="count-badge">待命</span>
+                </div>
+                <div id="chessAnalysis" class="chess-analysis" aria-live="polite">开始后，我会告诉你我的想法。</div>
+              </section>
+
+              <section class="chess-chat-card">
+                <div id="chessChatMessages" class="chess-chat-messages" aria-live="polite"></div>
+                <form id="chessChatForm" class="chess-chat-form">
+                  <input id="chessChatInput" type="text" maxlength="500" placeholder="问问 Lilia 这一步为什么…" autocomplete="off" />
+                  <button id="chessChatSendBtn" class="primary-button" type="submit">发送</button>
+                </form>
+              </section>
+            </aside>
+          </div>
         </section>
       </div>
     </main>
